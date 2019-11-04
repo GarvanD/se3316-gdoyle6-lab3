@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 let ProductSchema = new Schema({
     name: {type: String, required: true, max: 100},
-    loan_period: {type: Number, required: true},
+    loan_period: {type: Number, required: false},
     type: {type: String, required:true},
     quantity: {type: Number, required:true}
 });

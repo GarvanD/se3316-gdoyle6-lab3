@@ -37,7 +37,7 @@ function addItemSubmit()
     let regex_numeric = /^[0-9]+$/;
 
     //Regex results
-    let name_test = regex_alphanumeric.test(item_name);
+    let name_test = true;
     let loan_test = regex_numeric.test(loan_period);
     let quantity_test = regex_numeric.test(quantity);
     let type_test = Boolean(type === "book" || type === "cd");
@@ -119,6 +119,10 @@ function addItemSubmit()
 
 }
 
+function fixHTML(e) {
+    return e.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -150,7 +154,7 @@ function updateAllItems()
             {
                 let msg = data[i].name + " | " + data[i].type + " | " + data[i].loan_period + " | " + data[i].quantity + " | " + data[i]._id;
                 let item = document.createElement("li");
-                item.appendChild(document.createTextNode(msg));
+                item.appendChild(document.createTextNode(fixHTML(msg)));
                 document.getElementById("available-items").appendChild(item);
                 document.getElementById("available-items").appendChild(document.createElement("br"));
                 previous_update = data;
