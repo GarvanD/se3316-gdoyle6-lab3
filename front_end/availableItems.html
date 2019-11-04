@@ -9,8 +9,11 @@
     </head>
 <body onload="updateAllItems()">
     <script src="script.js"></script>
-    <h3>Search:</h3>
-    <input><
+    <input id="search" placeholder="Enter ID!">
+    <button onclick="getItemByID()">Search!</button>
+    <div id="search-results">
+        
+    </div>
     <h2>Items Available:</h2>
     <div class="title-items">
         <h4>Name</h4>

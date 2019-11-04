@@ -143,3 +143,34 @@ function updateAllItems()
     })
     
 }
+
+function getItemByID()
+{
+    document.getElementById("search-results").innerHTML = "";
+    let id = document.getElementById("search").value;
+    window.fetch("http://54.85.159.41:8080/products/"+id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+      let name = document.createTextNode("Item Name: " + data.name);
+      let type = document.createTextNode("Type :" + data.type);
+      let loan_period = document.createTextNode("Loan Period :" + data.loan_period);
+      let quantity = document.createTextNode("Quantity :" + data.quantity);
+      let id = document.createTextNode("ID :" + data._id);
+      document.getElementById("search-results").appendChild(name);
+      document.getElementById("search-results").appendChild(document.createElement("br"));
+      document.getElementById("search-results").appendChild(type);
+      document.getElementById("search-results").appendChild(document.createElement("br"));
+      document.getElementById("search-results").appendChild(loan_period);
+      document.getElementById("search-results").appendChild(document.createElement("br"));
+      document.getElementById("search-results").appendChild(quantity);
+      document.getElementById("search-results").appendChild(document.createElement("br"));
+      document.getElementById("search-results").appendChild(id);
+    }
+    )
+}
