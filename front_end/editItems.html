@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SE 3316 - Lab 3</title>
+  <link rel = "stylesheet"
+   type = "text/css"
+   href = "stylesheet.css" />
+</head>
+<body>
+  <script src="script.js"></script>
+  <div class="container">
+    <form >
+        
+      <h2>Edit Item</h2>
+      <label for="id">Item ID</label>
+      <input type="text" id="id" name="id" placeholder="Enter item id to edit...">
+      <input type="button" id="id_search" onclick="getInfoByID()"value="Search!">
+      <br/><br/><br/>
+      <label for="name">Item Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter item name..." disabled>
+      <br/>
+      <label for="loan_period">Loan Period</label>
+      <br/>
+      <input type="number" style="padding: 10px 0;" id="loan_period" name="loan_period" placeholder="Enter the loan period.." disabled>
+      <br/>
+      <label for="type">Type</label>
+      <br/>
+      <select id="type" name="type" disabled>
+        <option value="book">Book</option>
+        <option value="cd">CD</option>
+      </select>
+      <label for="quantity">Quantity</label>
+      <br/>
+      <input style="padding: 10px;" type="quantity" id="quantity" name="quantity" placeholder="Enter the quantity.." disabled>
+      <br/><br/>
+      <div style="display: inline-block;">
+      <input type="button" onclick="addItemSubmit()" value="Edit">
+      <input type="button" onclick="addItemSubmit()" value="Delete">
+      <input type="button" onclick="window.location.href='index.html'" value="Back">
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
