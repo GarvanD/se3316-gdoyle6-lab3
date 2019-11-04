@@ -1,0 +1,71 @@
+input[type=text], select, textarea {
+    width: 100%; /* Full width */
+    padding: 12px; /* Some padding */ 
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+  }
+  
+  /* Style the submit button with a specific background color etc */
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* When moving the mouse over the submit button, add a darker green color */
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  /* Add a background color and some padding around the form */
+  .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .my-button-wrapper{
+      padding: 10px 0;
+      text-align: center;
+  }
+  .my-button {
+    display: inline-block;
+    margin: 5px; /* space between buttons */
+    background: #30d9d6; /* background color */
+    color: #333; /* text color */
+    font-size: 1.5em;
+    font-family: ‘Georgia’, serif;
+    font-style: italic;
+    border-radius: 50px; /* rounded corners */
+    padding: 8px 16px; /* space around text */
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+.my-button:hover {
+    background: rgb(32, 168, 116);
+    color: #c1e1e0;
+}
+.landing-page-wrapper{
+    text-align: center;
+    padding: 100px 0;
+}
+
+.title-items{
+  display: inline;
+  padding-left: 35px;
+}
+
+h4{
+  display: inline-block;
+  text-align: center;
+  padding-right: 10px;
+}
