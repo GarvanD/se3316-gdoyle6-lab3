@@ -1,3 +1,4 @@
+var previous_update;
 function postToDB(name, loan, quantity, type)
 {
     var data = "name="+name+"&loan_period="+loan+"&type="+type+"&quantity="+quantity;
@@ -53,7 +54,7 @@ function addItemSubmit()
         name_response = "Item Name: " + item_name;
     }
     //Loan Period
-    if (!loan_test)
+    if (!loan_test && loan_response !="")
     {
         loan_response = "Loan Period must be numeric";
         document.getElementById("loan_period").value = "";
@@ -96,7 +97,7 @@ function addItemSubmit()
     
     //Confirm with user
     let response_msg;
-    if(type_test && name_test && quantity_test && loan_test)
+    if(type_test && name_test && quantity_test)
     {
         response_msg = "Attempt to add new item.\n" + name_response + "\n" + loan_response + "\n"  + quantity_response + "\n"  + type_response + "\n";
         if(confirm(response_msg))
@@ -118,8 +119,18 @@ function addItemSubmit()
 
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-function update(){}
+
+async function update()
+{
+    while(true){
+        updateAllItems();
+        await sleep(2000);
+    }
+}
 
 function updateAllItems()
 {
@@ -132,15 +143,20 @@ function updateAllItems()
     })
     .then(response => response.json())
     .then(data => {
-        for (var i = 0; i < data.length; i++)
-    {
-        let msg = data[i].name + " | " + data[i].type + " | " + data[i].loan_period + " | " + data[i].quantity + " | " + data[i]._id;
-        let item = document.createElement("li");
-        item.appendChild(document.createTextNode(msg));
-        document.getElementById("available-items").appendChild(item);
-        document.getElementById("available-items").appendChild(document.createElement("br"));
-    }
-    })
+        if (!(JSON.stringify(data) == JSON.stringify(previous_update)))
+        {
+            document.getElementById("available-items").innerHTML = "";
+            for (var i = 0; i < data.length; i++)
+            {
+                let msg = data[i].name + " | " + data[i].type + " | " + data[i].loan_period + " | " + data[i].quantity + " | " + data[i]._id;
+                let item = document.createElement("li");
+                item.appendChild(document.createTextNode(msg));
+                document.getElementById("available-items").appendChild(item);
+                document.getElementById("available-items").appendChild(document.createElement("br"));
+                previous_update = data;
+            }
+        }
+        })
     
 }
 
@@ -148,6 +164,7 @@ function getItemByID()
 {
     document.getElementById("search-results").innerHTML = "";
     let id = document.getElementById("search").value;
+    document.getElementById("search").value = "";
     window.fetch("http://54.85.159.41:8080/products/"+id, {
         method: 'GET',
         headers: {
@@ -237,4 +254,46 @@ function editInfo()
     xhr.setRequestHeader("cache-control", "no-cache");
     
     xhr.send(data);
+    document.getElementById("name").disabled = true;
+    document.getElementById("loan_period").disabled = true;
+    document.getElementById("type").disabled = true;
+    document.getElementById("quantity").disabled = true;
+    
+    document.getElementById("name").value = "";
+    document.getElementById("loan_period").value = "";
+    document.getElementById("type").value = "";
+    document.getElementById("quantity").value = "";
 }
+
+function deleteByID()
+{
+    let id = document.getElementById("id").value;
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        console.log(this.responseText);
+      }
+    });
+    
+    xhr.open("DELETE", "http://54.85.159.41:8080/products/"+id+"/delete");
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    document.getElementById("name").disabled = true;
+    document.getElementById("loan_period").disabled = true;
+    document.getElementById("type").disabled = true;
+    document.getElementById("quantity").disabled = true;
+    document.getElementById("name").value = "";
+    document.getElementById("loan_period").value = "";
+    document.getElementById("type").value = "";
+    document.getElementById("quantity").value = "";
+    
+    xhr.send(null);
+    alert("Deleted ID: " + id);
+    
+    
+}
+
+
