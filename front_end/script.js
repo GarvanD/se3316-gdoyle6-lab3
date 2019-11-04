@@ -214,38 +214,27 @@ function getInfoByID()
 
 function editInfo()
 {
-    var name;
-    var type;
-    var loan;
-    var quantity;
+    var name = document.getElementById("name").value;
+    var type = document.getElementById("type").value
+    var loan = document.getElementById("loan_period").value;
+    var quantity = document.getElementById("quantity").value;
     let id = document.getElementById("id").value;
-    window.fetch("http://54.85.159.41:8080/products/"+id+"/update", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("name").disabled = false;
-        document.getElementById("loan_period").disabled = false;
-        document.getElementById("type").disabled = false;
-        document.getElementById("quantity").disabled = false;
-        name = data.name;
-        type = data.type;
-        loan = data.loan_period;
-        quantity = data.quantity;
-        document.getElementById("name").value = name;
-        document.getElementById("loan_period").value = loan;
-        document.getElementById("type").value = type;
-        document.getElementById("quantity").value = quantity;
-        
-    })
-    .catch(response => {
-        alert("Could not find item!");
-    })
-        
+    var data = "name="+name+"&type="+type+"&loan_period="+loan+"&quantity="+quantity;
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
     
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+        alert(this.responseText);
+      }
+    });
     
+    xhr.open("PUT", "http://54.85.159.41:8080/products/"+id+"/update");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    
+    xhr.send(data);
 }
